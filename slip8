@@ -1,0 +1,63 @@
+q1
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam Preparation</title>
+</head>
+<body>
+
+<script>
+  // Display alert box
+  alert('Exams are near, have you started preparing for?');
+
+  // Accept two numbers from the user
+  var firstNumber = prompt('Enter the first number:');
+  var secondNumber = prompt('Enter the second number:');
+
+  // Convert input to numbers and calculate the sum
+  var sum = parseFloat(firstNumber) + parseFloat(secondNumber);
+
+  // Display the result using confirm box
+  confirm('The addition of ' + firstNumber + ' and ' + secondNumber + ' is: ' + sum);
+</script>
+
+</body>
+</html>
+
+
+
+
+q2
+import pandas as pd
+from mlxtend.preprocessing import TransactionEncoder
+from mlxtend.frequent_patterns import apriori, association_rules
+
+# Read the dataset
+data = pd.read_csv("groceries_dataset.csv")
+
+# Display dataset information
+print("Dataset Information:")
+print(data.info())
+
+# Preprocess the data: Drop null values
+data.dropna(inplace=True)
+
+# Convert categorical values into numeric format
+te = TransactionEncoder()
+data_encoded = te.fit(data.values).transform(data.values)
+data_encoded = pd.DataFrame(data_encoded, columns=te.columns_)
+
+# Apply the Apriori algorithm to generate frequent itemsets
+frequent_itemsets = apriori(data_encoded, min_support=0.01, use_colnames=True)
+
+# Generate association rules
+association_rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.5)
+
+# Display frequent itemsets and association rules
+print("\nFrequent Itemsets:")
+print(frequent_itemsets)
+
+print("\nAssociation Rules:")
+print(association_rules)
